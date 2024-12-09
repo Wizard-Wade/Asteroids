@@ -1,27 +1,28 @@
 import pygame
 from constants import *
 
-screen = pygame.Surface((0,0))
+class asteroids_game():
+    def __init__(self):
+        print("Starting asteroids!")
+        pygame.init()
+        self.__screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.gameloop()
+    
+    def gameloop(self):
+        while(True):
+            if self.window_close(): return
+            self.__screen.fill(pygame.Color(0,0,0))
+            
+            pygame.display.flip()
+            
+    def window_close(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return True
 
 def main():
-    print("Starting asteroids!")
-    pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    gameloop()
-    print(f"Screen width: {SCREEN_WIDTH}")
-    print(f"Screen height: {SCREEN_HEIGHT}")
-
-def gameloop():
-    while(True):
-        if window_close(): return
-        screen.fill(pygame.Color(0,0,0))
-        
-        pygame.display.flip()
-        
-def window_close():
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            return True
+    asteroids_game()
+    print("closing Asteroids")
 
 if __name__ == "__main__":
     main()
