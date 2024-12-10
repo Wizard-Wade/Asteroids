@@ -1,5 +1,6 @@
 import pygame
 from constants import *
+import player
 
 class asteroids_game():
     def __init__(self):
@@ -8,12 +9,14 @@ class asteroids_game():
         self.__fps = game_clock()
         
         self.__screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.player = player.Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
         self.gameloop()
     
     def gameloop(self):
         while(True):
             if self.window_close(): return
             self.__screen.fill(pygame.Color(0,0,0))
+            self.player.draw(self.__screen)
             
             pygame.display.flip()
             self.__fps.addframe()
