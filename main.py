@@ -16,6 +16,7 @@ class asteroids_game():
         while(True):
             if self.window_close(): return
             self.__screen.fill(pygame.Color(0,0,0))
+            self.player.update(self.__fps.dt)
             self.player.draw(self.__screen)
             
             pygame.display.flip()
@@ -29,10 +30,10 @@ class asteroids_game():
 class game_clock():
     def __init__(self):
         self.__clock = pygame.time.Clock()
-        self.__dt = 0
+        self.dt = 0
     
     def addframe(self):
-        self.__dt = self.__clock.tick(60)/1000
+        self.dt = self.__clock.tick(60)/1000
 
 def main():
     asteroids_game()
