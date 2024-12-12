@@ -1,4 +1,5 @@
 import pygame
+import sys
 from constants import *
 from player import Player
 from asteroid import Asteroid
@@ -32,6 +33,11 @@ class asteroids_game():
             
             for obj in self.drawable:
                 obj.draw(self.__screen)
+                
+            for obj in self.asteroids:
+                if obj.collision(self.player):
+                    print("GAME OVER")
+                    sys.exit
             
             pygame.display.flip()
             self.__fps.addframe()
