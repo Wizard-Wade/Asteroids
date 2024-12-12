@@ -1,6 +1,8 @@
 import pygame
 from constants import *
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 class asteroids_game():
     def __init__(self):
@@ -8,7 +10,12 @@ class asteroids_game():
         pygame.init()
         self.updatable = pygame.sprite.Group()
         self.drawable = pygame.sprite.Group()
+        self.asteroids = pygame.sprite.Group()
+        self.asteroidfield = pygame.sprite.Group()
         Player.containers = (self.updatable, self.drawable)
+        Asteroid.containers = (self.updatable, self.drawable, self.asteroids)
+        AsteroidField.containers = (self.updatable)
+        self.asteroidfield = AsteroidField()
         self.__fps = game_clock()
         
         self.__screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
