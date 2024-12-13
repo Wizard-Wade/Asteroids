@@ -4,6 +4,7 @@ from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 
 class asteroids_game():
     def __init__(self):
@@ -13,9 +14,14 @@ class asteroids_game():
         self.drawable = pygame.sprite.Group()
         self.asteroids = pygame.sprite.Group()
         self.asteroidfield = pygame.sprite.Group()
-        Player.containers = (self.updatable, self.drawable)
+        self.shots = pygame.sprite.Group()
+
+        Shot.containers = (self.updatable, self.drawable, self.shots)
         Asteroid.containers = (self.updatable, self.drawable, self.asteroids)
         AsteroidField.containers = (self.updatable)
+        Player.containers = (self.updatable, self.drawable)
+        
+
         self.asteroidfield = AsteroidField()
         self.__fps = game_clock()
         
@@ -38,6 +44,7 @@ class asteroids_game():
                 if obj.collision(self.player):
                     print("GAME OVER")
                     sys.exit
+                    return
             
             pygame.display.flip()
             self.__fps.addframe()
