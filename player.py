@@ -9,6 +9,7 @@ class Player(circleshape.CircleShape):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
         self.shot_cooldown = 0
+        self.destroyed_asteroid = []
         
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -27,7 +28,8 @@ class Player(circleshape.CircleShape):
         self.position += forward * PLAYER_SPEED * dt
         
     
-    def draw(self, screen):
+    def draw(self, screen, font):
+        pygame.draw.circle(screen, "White", self.position, self.radius, 2)
         pygame.draw.polygon(screen, pygame.Color(255,255,255), self.triangle(), 2)
             
     def update(self, dt):

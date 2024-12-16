@@ -1,4 +1,5 @@
 import pygame
+import pygame.freetype
 import sys
 from constants import *
 from player import Player
@@ -30,6 +31,8 @@ class asteroids_game():
         self.gameloop()
     
     def gameloop(self):
+        self.my_font = pygame.font.Font(None, 24)
+    
         while(True):
             if self.window_close(): return
             self.__screen.fill(pygame.Color(0,0,0))
@@ -38,17 +41,21 @@ class asteroids_game():
                 obj.update(self.__fps.dt)
             
             for obj in self.drawable:
-                obj.draw(self.__screen)
+                obj.draw(self.__screen, self.my_font)
                 
-            for obj in self.asteroids:                   
+            for obj in self.asteroids:
+
                 if obj.collision(self.player):
+                    print(f"User Collided with {obj.name}")
+                    print(self.player.destroyed_asteroid)
                     print("GAME OVER")
                     sys.exit
                     return
                 
                 for shot in self.shots:
                     if obj.collision(shot):
-                        obj.kill()
+                        self.player.destroyed_asteroid.append(obj.name)
+                        obj.split()
                         shot.kill()
                         continue
             
