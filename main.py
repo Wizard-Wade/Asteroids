@@ -40,11 +40,17 @@ class asteroids_game():
             for obj in self.drawable:
                 obj.draw(self.__screen)
                 
-            for obj in self.asteroids:
+            for obj in self.asteroids:                   
                 if obj.collision(self.player):
                     print("GAME OVER")
                     sys.exit
                     return
+                
+                for shot in self.shots:
+                    if obj.collision(shot):
+                        obj.kill()
+                        shot.kill()
+                        continue
             
             pygame.display.flip()
             self.__fps.addframe()
